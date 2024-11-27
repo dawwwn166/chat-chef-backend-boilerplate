@@ -8,4 +8,3 @@ dotenv.config({ path: __dirname + "/.env" });
 console.log("Hello world");
 
 console.log(process.env.OPENAI_API_KEY);
-console.log(process.env.PORT);
