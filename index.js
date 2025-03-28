@@ -20,17 +20,6 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-// test 코드
-app.get("/test", async (req, res) => {
-  // 실행코드
-  try {
-    res.json({ data: "비개발자를 위한 AI 서비스 개발 강의" });
-  } catch (error) {
-    // 에러가 난 경우
-    console.log(error);
-  }
-});
-
 // 챗봇 api설정
 const initialMessage = (ingredientList) => {
   return [
@@ -80,6 +69,7 @@ app.post("/message", async function (req, res) {
       top_p: 1,
     });
     const data = response.choices[0].message;
+    console.log(data)
     res.json({ data });
   } catch (error) {
     console.log(error);
