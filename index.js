@@ -1,4 +1,5 @@
-import OpenAI from "openai";
+import axios from 'axios';  // ai studio 호출
+import OpenAI from "openai"; // openai 호출
 import express from "express";
 import cors from "cors";
 import * as dotenv from "dotenv";
@@ -19,6 +20,9 @@ dotenv.config({ path: __dirname + "/.env" });
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
+
+// ai studio 정보 설정
+
 
 // 챗봇 api설정
 const initialMessage = (ingredientList) => {
