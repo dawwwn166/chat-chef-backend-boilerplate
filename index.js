@@ -63,20 +63,28 @@ app.post("/recipe", async (req, res) => {
 // 유저와의 채팅
 app.post("/message", async function (req, res) {
   const { userMessage, messages } = req.body;
+  process.stdout.write("📜 받은 messages: " + JSON.stringify(messages, null, 2) + "\n");
+  process.stdout.write("💬 받은 userMessage: " + JSON.stringify(userMessage, null, 2) + "\n");
+
+  const validMessages = [...messages, userMessage].filter(
+    (msg) => msg && typeof msg === "object" && msg.role && msg.content
+  );
 
   try {
     const response = await openai.chat.completions.create({
       model: "gpt-4o",
-      messages: [...messages, userMessage],
+      messages: validMessages,
       temperature: 1,
       max_tokens: 4000,
       top_p: 1,
     });
+
     const data = response.choices[0].message;
-    console.log(data)
+    console.log("🤖 AI 응답:", data); // ✅ 요 로그가 필요함!
     res.json({ data });
   } catch (error) {
-    console.log(error);
+    console.error("❌ Error:", error);
+    res.status(500).json({ error: error.message });
   }
 });
 
