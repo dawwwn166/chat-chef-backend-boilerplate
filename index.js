@@ -93,4 +93,7 @@ app.post("/message", async function (req, res) {
 // 3. update: 수정 (Update)
 // 4. delete: 삭제 (Delete)
 
-app.listen("8080");
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+  console.log(`🚀 Server is running on port ${PORT}`);
+});
